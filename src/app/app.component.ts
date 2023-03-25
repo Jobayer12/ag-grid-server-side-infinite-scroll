@@ -1,14 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {
-  ColDef,
-  ColumnApi,
-  GridApi,
-  GridOptions,
-  GridReadyEvent,
-  ICellRendererParams,
-  IDatasource,
-  IGetRowsParams
-} from "ag-grid-community";
+import { ColDef, ColumnApi, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, IDatasource, IGetRowsParams } from "ag-grid-community";
 import {GithubApi, GithubIssue, IGithubIssueSearchParams} from './common/interface/IGithubApi';
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
