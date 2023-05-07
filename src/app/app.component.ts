@@ -28,7 +28,7 @@ export class AppComponent implements OnInit{
       columnDefs: this.columns,
       rowModelType: 'infinite',
       onGridReady: this.onGridReady.bind(this),
-      overlayLoadingTemplate: `<span class="ag-overlay-loading-center">No issue found.</span>`
+      overlayLoadingTemplate: `<span class="ag-overlay-loading-center">No github issue found.</span>`
     };
   }
 
