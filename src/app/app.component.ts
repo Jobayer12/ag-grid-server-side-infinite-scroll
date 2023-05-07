@@ -43,7 +43,7 @@ export class AppComponent implements OnInit{
       {
         flex: 1,
         field: 'id',
-        headerName: 'ID',
+        headerName: 'Id',
         cellRenderer: (params: ICellRendererParams) => {
           if (params.value !== undefined) {
             return params.value;
