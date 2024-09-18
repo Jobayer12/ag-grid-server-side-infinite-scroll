@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { ColDef, ColumnApi, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, IDatasource, IGetRowsParams } from "ag-grid-community";
+import { ColDef, ColumnApi, ColumnMovedEvent, ColumnResizedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, IDatasource, IGetRowsParams } from "ag-grid-community";
 import {IGithubApi, IGithubIssue, IGithubIssueSearchParams} from './IGithubApi';
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
@@ -24,17 +24,31 @@ export class AppComponent implements OnInit{
 
   ngOnInit() {
     this.gridOptions = {
-      getRowNodeId: data => data.id,
+      getRowId:  params => params?.data?.id?.toString(),
       columnDefs: this.columns,
       rowModelType: 'infinite',
       onGridReady: this.onGridReady.bind(this),
+      onColumnResized: this.gridColumnEvents.bind(this),
+      onColumnMoved: this.gridColumnEvents.bind(this),
       overlayLoadingTemplate: `<span class="ag-overlay-loading-center">No github issue found.</span>`
     };
+
+  }
+
+  gridColumnEvents(event: ColumnResizedEvent | ColumnMovedEvent): void {
+    const columnStates = event.columnApi.getColumnState();
+    localStorage.setItem('column_state', JSON.stringify(columnStates));
   }
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.columnApi = params.columnApi;
+    if (localStorage.getItem('column_state') !== null) {
+      this.columnApi?.applyColumnState({
+        state: (JSON.parse(localStorage.getItem('column_state')) || []) as any[],
+        applyOrder: true
+      });
+    }
     this.loadGithubIssues();
   }
 

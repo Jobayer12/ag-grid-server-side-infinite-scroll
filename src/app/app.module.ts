@@ -23,7 +23,9 @@ import {HttpClientModule} from '@angular/common/http';
     MatButtonModule,
     MatInputModule,
     HttpClientModule,
-    AgGridModule
+    AgGridModule,
+    MatButtonModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
